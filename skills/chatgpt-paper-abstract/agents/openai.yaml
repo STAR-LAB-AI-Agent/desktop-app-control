@@ -1,0 +1,4 @@
+interface:
+  display_name: "ChatGPT Paper Sections"
+  short_description: "Translate a paper Abstract and Sections 1–5"
+  default_prompt: "Use $chatgpt-paper-abstract to translate my Desktop paper through Section 5."

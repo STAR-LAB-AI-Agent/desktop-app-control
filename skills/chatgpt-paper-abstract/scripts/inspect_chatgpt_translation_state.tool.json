@@ -1,0 +1,25 @@
+{
+  "protocol": "agent-skill-script/v1",
+  "name": "inspect_chatgpt_translation_state",
+  "description": "为论文翻译截取当前屏幕并专项判断 ChatGPT 是仍在生成、已完成、被遮挡还是无法判断；不使用全屏变化率或正文长度",
+  "entrypoint": "inspect_chatgpt_translation_state.py",
+  "timeout_seconds": 120,
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "expected_segment": {
+        "type": "string",
+        "enum": [
+          "Abstract",
+          "Section 1",
+          "Section 2",
+          "Section 3",
+          "Section 4",
+          "Section 5"
+        ]
+      }
+    },
+    "required": ["expected_segment"],
+    "additionalProperties": false
+  }
+}
