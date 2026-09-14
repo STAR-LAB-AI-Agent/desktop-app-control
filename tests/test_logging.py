@@ -2,12 +2,13 @@ import json
 from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
+from unittest.mock import Mock
 
 from desktop_agent.logging import TaskLogStore
 from desktop_agent.runtime import TaskRuntime
 from desktop_agent.task import TaskRequest
 from desktop_agent.tools.base import ToolRegistry, ToolSpec
-from desktop_agent.workflows import BaiduSearchWorkflow, WorkflowRegistry
+from desktop_agent.workflows import GeneralTaskWorkflow, WorkflowRegistry
 
 
 class TaskLogStoreTests(unittest.TestCase):
@@ -82,9 +83,12 @@ class TaskLogStoreTests(unittest.TestCase):
         with TemporaryDirectory() as temporary:
             logs = TaskLogStore(Path(temporary))
             workflows = WorkflowRegistry()
-            workflows.register(BaiduSearchWorkflow())
+            workflows.register(GeneralTaskWorkflow(Mock()))
             runtime = TaskRuntime(ToolRegistry(), workflows, logs=logs)
-            request = TaskRequest(kind="baidu_search", payload={"query": "Python"})
+            request = TaskRequest(
+                kind="general",
+                payload={"task": "在当前页面搜索 Python", "max_steps": 10},
+            )
 
             runtime.review(request)
 

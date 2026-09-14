@@ -28,8 +28,6 @@ class TaskAuditor:
     def review(self, request: TaskRequest, actions: list) -> TaskReview:
         request.status = TaskStatus.UNDER_REVIEW
 
-        if request.kind == "baidu_search":
-            return self._review_search(request, actions)
         if request.kind == "general":
             return self._review_general(request, actions)
         if request.kind == "skill":
@@ -41,32 +39,6 @@ class TaskAuditor:
             summary=f"不支持的任务类型：{request.kind}",
             actions=actions,
             warnings=["没有与该任务类型对应的审核规则。"],
-        )
-
-    def _review_search(self, request: TaskRequest, actions: list) -> TaskReview:
-        query = str(request.payload.get("query", "")).strip()
-        if not query:
-            return self._reject(request, actions, "搜索关键词不能为空。")
-        if len(query) > 500:
-            return self._reject(request, actions, "搜索关键词超过 500 字符。")
-        if any(pattern.search(query) for pattern in SECRET_PATTERNS):
-            return self._reject(
-                request,
-                actions,
-                "搜索内容疑似包含 API key、密码或令牌，默认禁止发送。",
-            )
-
-        request.status = TaskStatus.AWAITING_APPROVAL
-        return TaskReview(
-            task_id=request.id,
-            decision=ReviewDecision.CONFIRM,
-            risk=RiskLevel.LOW,
-            summary=f"在当前百度页面搜索：{query}",
-            actions=actions,
-            warnings=[
-                "搜索关键词会提交给百度并触发页面跳转。",
-                "执行期间请勿移动窗口；鼠标移到屏幕左上角可紧急停止。",
-            ],
         )
 
     def _review_general(self, request: TaskRequest, actions: list) -> TaskReview:

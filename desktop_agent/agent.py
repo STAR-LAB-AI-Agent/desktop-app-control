@@ -13,7 +13,6 @@ from .task import TaskRequest, TaskResult, TaskReview
 from .tools import DesktopToolbox, ToolRegistry, ToolSpec
 from .vision import DeepSeekVisionLocator
 from .workflows import (
-    BaiduSearchWorkflow,
     GeneralTaskWorkflow,
     SkillTaskWorkflow,
     Workflow,
@@ -69,7 +68,6 @@ class DesktopAgent:
 
         self.workflows = workflows or WorkflowRegistry()
         if workflows is None:
-            self.workflows.register(BaiduSearchWorkflow())
             self.workflows.register(
                 GeneralTaskWorkflow(
                     self.locator,
@@ -98,7 +96,13 @@ class DesktopAgent:
         self.workflows.register(workflow)
 
     def create_search_task(self, query: str) -> TaskRequest:
-        return TaskRequest(kind="baidu_search", payload={"query": query})
+        """保留旧命令兼容性，搜索任务统一交给通用工作流。"""
+        query = query.strip()
+        task = f"在当前页面搜索：{query}" if query else ""
+        return TaskRequest(
+            kind="general",
+            payload={"task": task, "max_steps": self.config.max_steps},
+        )
 
     def create_general_task(
         self,

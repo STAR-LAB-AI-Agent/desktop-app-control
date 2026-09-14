@@ -1,8 +1,8 @@
 """用视觉模型定位桌面元素，并通过 pyautogui 移动或点击。
 
 运行示例：
-    conda run -n desktop-ai python tests/mouse_test.py
-    conda run -n desktop-ai python tests/mouse_test.py --click
+    conda run -n desktop-ai python tests/script_cli/mouse_test.py
+    conda run -n desktop-ai python tests/script_cli/mouse_test.py --click
 
 需要提前设置环境变量 DEEPSEEK_API_KEY。不要把密钥写进源码。
 """

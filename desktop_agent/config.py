@@ -47,6 +47,7 @@ class AgentConfig:
             "wait": 10,
             "sleep": 12,
             "inspect_chatgpt_translation_state": 12,
+            "inspect_video_playback_state": 12,
             "find_desktop_file": 3,
         }
     )

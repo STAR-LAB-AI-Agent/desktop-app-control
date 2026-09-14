@@ -43,12 +43,20 @@ def _add_common_arguments(parser: argparse.ArgumentParser, config: AgentConfig) 
         default=config.max_atomic_operations,
         help="单任务最大原子工具调用数",
     )
+    parser.add_argument(
+        "--debug",
+        action="store_true",
+        help="监听 127.0.0.1:5678 并等待调试器连接",
+    )
 
 
 def build_parser(config: AgentConfig) -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="视觉桌面 Agent")
     subparsers = parser.add_subparsers(dest="command", required=True)
-    search = subparsers.add_parser("search", help="审核后在当前百度主页搜索")
+    search = subparsers.add_parser(
+        "search",
+        help="兼容入口：将当前页面搜索交给通用工作流",
+    )
     search.add_argument("query", help="搜索关键词")
     _add_common_arguments(search, config)
 
@@ -62,6 +70,13 @@ def build_parser(config: AgentConfig) -> argparse.ArgumentParser:
 def main(config: AgentConfig | None = None) -> int:
     defaults = config or AgentConfig()
     args = build_parser(defaults).parse_args()
+    if args.debug:
+        import debugpy
+
+        debugpy.listen(("127.0.0.1", 5678))
+        print("调试器正在监听 127.0.0.1:5678，等待连接……")
+        debugpy.wait_for_client()
+
     run_config = replace(
         defaults,
         min_confidence=args.min_confidence,

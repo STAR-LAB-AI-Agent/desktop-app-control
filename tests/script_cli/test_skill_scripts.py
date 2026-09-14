@@ -13,7 +13,7 @@ from PIL import Image
 from desktop_agent.tools.skill_scripts import SCRIPT_PROTOCOL, SkillScriptTool
 
 
-ROOT = Path(__file__).parents[1]
+ROOT = Path(__file__).parents[2]
 SCRIPT = (
     ROOT
     / "skills"

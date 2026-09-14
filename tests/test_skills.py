@@ -1,4 +1,6 @@
+import json
 from pathlib import Path
+from tempfile import TemporaryDirectory
 import unittest
 
 from desktop_agent.audit import TaskAuditor
@@ -58,6 +60,58 @@ class SkillRoutingTests(unittest.TestCase):
     def test_unrelated_task_stays_general(self) -> None:
         self.assertIsNone(self.registry.route("在百度搜索天气"))
 
+    def test_routes_video_playback_and_extracts_platform(self) -> None:
+        cases = (
+            (
+                "在B站搜索并播放 Python 教程视频",
+                "哔哩哔哩",
+                "https://www.bilibili.com",
+                "Python 教程",
+            ),
+            (
+                "Use YouTube to search and play a Python tutorial video",
+                "YouTube",
+                "https://www.youtube.com",
+                "Python tutorial",
+            ),
+        )
+        for task, platform, url, query in cases:
+            with self.subTest(task=task):
+                match = self.registry.route(task)
+                self.assertIsNotNone(match)
+                assert match is not None
+                self.assertEqual(match.definition.name, "web-video-playback")
+                self.assertEqual(match.variables["requested_platform"], platform)
+                self.assertEqual(match.variables["platform_url"], url)
+                self.assertEqual(match.variables["video_query"], query)
+
+    def test_skill_config_controls_priority(self) -> None:
+        self.assertEqual(self.registry.get("chatgpt-paper-abstract").priority, 100)
+        self.assertEqual(self.registry.get("web-video-playback").priority, 90)
+
+    def test_disabled_skill_is_not_loaded(self) -> None:
+        with TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            disabled = root / "disabled-skill"
+            disabled.mkdir()
+            (disabled / "SKILL.md").write_text("故意无效", encoding="utf-8")
+            (root / "config.json").write_text(
+                json.dumps(
+                    {
+                        "version": 1,
+                        "skills": {
+                            "disabled-skill": {"enabled": False, "priority": 0}
+                        },
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            registry = SkillRegistry(root)
+            registry.discover()
+
+        self.assertEqual(registry.names(), ())
+
     def test_skill_specific_screenshot_tool_is_discovered(self) -> None:
         specs = self.registry.build_tool_specs(
             python_executable="python",
@@ -72,7 +126,15 @@ class SkillRoutingTests(unittest.TestCase):
         )
         self.assertEqual(
             self.registry.all_tool_names(),
-            ("inspect_chatgpt_translation_state",),
+            (
+                "inspect_chatgpt_translation_state",
+                "inspect_video_playback_state",
+            ),
+        )
+
+        self.assertEqual(
+            self.registry.tool_names("web-video-playback"),
+            ("inspect_video_playback_state",),
         )
 
         definition = self.registry.get("chatgpt-paper-abstract")

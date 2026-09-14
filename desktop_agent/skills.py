@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import importlib.util
+import json
 import re
 from dataclasses import dataclass
 from pathlib import Path
@@ -18,6 +19,7 @@ class SkillDefinition:
     directory: Path
     handler: Any
     script_manifests: tuple[Path, ...] = ()
+    priority: int = 0
 
     def instructions(self) -> str:
         text = (self.directory / "SKILL.md").read_text(encoding="utf-8")
@@ -41,7 +43,22 @@ class SkillRegistry:
         self._skill_tool_names.clear()
         if not self.root.exists():
             return
-        for skill_md in sorted(self.root.glob("*/SKILL.md")):
+        skill_files = sorted(self.root.glob("*/SKILL.md"))
+        configured = _read_registry_config(self.root / "config.json")
+        available_names = {path.parent.name for path in skill_files}
+        unknown_names = sorted(set(configured) - available_names)
+        if unknown_names:
+            raise ValueError(f"技能配置引用了不存在的目录：{unknown_names}")
+
+        definitions: list[SkillDefinition] = []
+        for skill_md in skill_files:
+            folder_name = skill_md.parent.name
+            settings = configured.get(
+                folder_name,
+                {"enabled": True, "priority": 0},
+            )
+            if not settings["enabled"]:
+                continue
             metadata = _read_frontmatter(skill_md)
             name = metadata.get("name", "").strip()
             description = metadata.get("description", "").strip()
@@ -58,7 +75,7 @@ class SkillRegistry:
                 raise ValueError(f"Skill 缺少 skill.py：{skill_md.parent}")
             if getattr(handler, "name", None) != name:
                 raise ValueError(f"skill.py 的 name 与 SKILL.md 不一致：{skill_md.parent}")
-            self._skills[name] = SkillDefinition(
+            definitions.append(SkillDefinition(
                 name=name,
                 description=description,
                 directory=skill_md.parent,
@@ -66,7 +83,11 @@ class SkillRegistry:
                 script_manifests=tuple(
                     sorted((skill_md.parent / "scripts").glob("*.tool.json"))
                 ),
-            )
+                priority=settings["priority"],
+            ))
+
+        definitions.sort(key=lambda item: (-item.priority, item.name))
+        self._skills = {definition.name: definition for definition in definitions}
 
     def route(self, task: str) -> SkillMatch | None:
         matches = [
@@ -76,9 +97,11 @@ class SkillRegistry:
         ]
         if not matches:
             return None
-        if len(matches) > 1:
+        highest_priority = max(item.priority for item in matches)
+        preferred = [item for item in matches if item.priority == highest_priority]
+        if len(preferred) > 1:
             raise ValueError(f"任务同时匹配多个 Skill：{[item.name for item in matches]}")
-        definition = matches[0]
+        definition = preferred[0]
         return SkillMatch(definition, definition.handler.prepare(task))
 
     def get(self, name: str) -> SkillDefinition:
@@ -133,6 +156,35 @@ def _read_frontmatter(path: Path) -> dict[str, str]:
             key, value = stripped.split(":", 1)
             metadata[key.strip()] = value.strip().strip('"\'')
     return metadata
+
+
+def _read_registry_config(path: Path) -> dict[str, dict[str, Any]]:
+    """读取 skills/config.json；未配置的技能默认启用且优先级为零。"""
+    if not path.exists():
+        return {}
+    value = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(value, dict) or value.get("version") != 1:
+        raise ValueError(f"技能配置必须使用 version=1：{path}")
+    raw_skills = value.get("skills", {})
+    if not isinstance(raw_skills, dict):
+        raise ValueError(f"技能配置的 skills 必须是 JSON 对象：{path}")
+
+    configured: dict[str, dict[str, Any]] = {}
+    for name, raw_settings in raw_skills.items():
+        if not isinstance(name, str) or not name.strip():
+            raise ValueError(f"技能配置包含无效名称：{name!r}")
+        if not isinstance(raw_settings, dict):
+            raise ValueError(f"技能 {name} 的配置必须是 JSON 对象")
+        enabled = raw_settings.get("enabled", True)
+        priority = raw_settings.get("priority", 0)
+        if not isinstance(enabled, bool):
+            raise ValueError(f"技能 {name} 的 enabled 必须是布尔值")
+        if isinstance(priority, bool) or not isinstance(priority, int):
+            raise ValueError(f"技能 {name} 的 priority 必须是整数")
+        if not -1000 <= priority <= 1000:
+            raise ValueError(f"技能 {name} 的 priority 必须在 -1000 到 1000 之间")
+        configured[name] = {"enabled": enabled, "priority": priority}
+    return configured
 
 
 def _load_handler(directory: Path, name: str):

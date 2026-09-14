@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "skills": {
+    "chatgpt-paper-abstract": {
+      "enabled": true,
+      "priority": 100
+    },
+    "web-video-playback": {
+      "enabled": true,
+      "priority": 90
+    }
+  }
+}

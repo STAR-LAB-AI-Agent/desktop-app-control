@@ -7,10 +7,8 @@ from desktop_agent import AgentConfig
 from desktop_agent.cli import main as run_cli
 
 
-# 可以在本地填入精确值。提交或分享代码前请清空，避免泄露密钥。
+# 密钥由当前进程环境变量提供，避免写入源码、日志和版本历史。
 API_KEY = os.environ.get("DEEPSEEK_API_KEY", "")
-
-
 # True：审核通过后不再询问，直接执行。硬性安全检查仍然保留。
 FULL_TRUST = False
 
@@ -40,6 +38,7 @@ TOOL_CALL_LIMITS = {
     "wait": 10,
     "sleep": 12,
     "inspect_chatgpt_translation_state": 12,
+    "inspect_video_playback_state": 12,
     "find_desktop_file": 3,
 }
 
