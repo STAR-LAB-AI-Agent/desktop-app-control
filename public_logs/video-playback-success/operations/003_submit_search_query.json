@@ -1,0 +1,22 @@
+{
+  "operation": 3,
+  "tool": "submit_search_query",
+  "explanation": "地址栏已聚焦，直接搜索视频网站入口。",
+  "arguments": {
+    "query": "复仇者联盟 在线观看 视频网站"
+  },
+  "result": {
+    "ok": true,
+    "query": "复仇者联盟 在线观看 视频网站",
+    "submitted": true,
+    "ignored_suggestions": true
+  },
+  "telemetry": {
+    "operation": 3,
+    "tool_calls": 1,
+    "screen_changed": true,
+    "change_score": 0.179468,
+    "image": "<USER_HOME>\\Desktop\\desk_agent\\logs\\2026-09-19_12-48-49-653_我要看复仇者联盟\\images\\003_submit_search_query_after.png"
+  },
+  "error": null
+}

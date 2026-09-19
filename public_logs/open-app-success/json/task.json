@@ -1,0 +1,16 @@
+{
+  "kind": "general",
+  "payload": {
+    "task": "打开微信",
+    "max_steps": 40,
+    "skill_route": {
+      "route": "general",
+      "confidence": 0.98,
+      "reason": "打开微信属于普通桌面操作，未匹配任何专项 Skill。",
+      "requested_route": "general"
+    }
+  },
+  "id": "85ebe0d976f54e4d9ad2134eef74a256",
+  "status": "submitted",
+  "created_at": "2026-09-19T07:43:04.919119+00:00"
+}

@@ -1,0 +1,56 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "desktop-ai-agent"
+version = "0.1.0"
+description = "A vision-driven desktop agent built with PyAutoGUI"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+dependencies = [
+    "Pillow>=10",
+    "PyAutoGUI>=0.9.54",
+    "pyperclip>=1.9",
+    "winrt-Windows.Media.Control>=3.2.1; sys_platform == 'win32'",
+    "winrt-Windows.Foundation>=3.2.1; sys_platform == 'win32'",
+    "winrt-Windows.Foundation.Collections>=3.2.1; sys_platform == 'win32'",
+]
+
+[project.optional-dependencies]
+debug = ["debugpy>=1.8"]
+
+[project.scripts]
+desk-agent = "desktop_agent.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["desktop_agent*"]
+
+[tool.setuptools.data-files]
+"share/desktop-ai-agent/skills" = [
+    "skills/config.json",
+    "skills/manage.py",
+]
+"share/desktop-ai-agent/skills/chatgpt-paper-abstract" = [
+    "skills/chatgpt-paper-abstract/SKILL.md",
+    "skills/chatgpt-paper-abstract/skill.py",
+]
+"share/desktop-ai-agent/skills/chatgpt-paper-abstract/agents" = [
+    "skills/chatgpt-paper-abstract/agents/openai.yaml",
+]
+"share/desktop-ai-agent/skills/chatgpt-paper-abstract/scripts" = [
+    "skills/chatgpt-paper-abstract/scripts/inspect_chatgpt_translation_state.py",
+    "skills/chatgpt-paper-abstract/scripts/inspect_chatgpt_translation_state.tool.json",
+]
+"share/desktop-ai-agent/skills/web-video-playback" = [
+    "skills/web-video-playback/SKILL.md",
+    "skills/web-video-playback/skill.py",
+]
+"share/desktop-ai-agent/skills/web-video-playback/agents" = [
+    "skills/web-video-playback/agents/openai.yaml",
+]
+"share/desktop-ai-agent/skills/web-video-playback/scripts" = [
+    "skills/web-video-playback/scripts/inspect_video_playback_state.py",
+    "skills/web-video-playback/scripts/inspect_video_playback_state.tool.json",
+]

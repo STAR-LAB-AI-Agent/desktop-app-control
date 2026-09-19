@@ -1,0 +1,30 @@
+{
+  "operation": 1,
+  "tool": "open_app_via_windows_search",
+  "explanation": "当前屏幕未显示浏览器，需先启动 Edge 以搜索并播放蜘蛛侠视频。",
+  "arguments": {
+    "app_name": "Edge"
+  },
+  "result": {
+    "ok": true,
+    "app_name": "Edge",
+    "method": "windows_search_keyboard",
+    "already_running": false,
+    "verified_open": true,
+    "foreground": true,
+    "focus_failed": false,
+    "ignored_search_history": true,
+    "process_name": "msedge.exe",
+    "window_title": "新建标签页 - 个人 - Microsoft​ Edge",
+    "window_visible": true,
+    "window_handle": 4196880
+  },
+  "telemetry": {
+    "operation": 1,
+    "tool_calls": 1,
+    "screen_changed": true,
+    "change_score": 0.314269,
+    "image": "<USER_HOME>\\Desktop\\desk_agent\\logs\\2026-09-19_17-12-31-647_我要看蜘蛛侠\\images\\001_open_app_via_windows_search_after.png"
+  },
+  "error": null
+}

@@ -1,0 +1,21 @@
+{
+  "task_id": "85ebe0d976f54e4d9ad2134eef74a256",
+  "decision": "confirm",
+  "risk": "medium",
+  "summary": "执行通用桌面任务：打开微信",
+  "actions": [
+    {
+      "tool": "agent_loop",
+      "arguments": {
+        "task": "打开微信",
+        "max_steps": 40
+      },
+      "purpose": "观察屏幕并逐步调用允许的工具，直到确认任务完成"
+    }
+  ],
+  "warnings": [
+    "模型会在最大步数限制内根据屏幕内容动态选择工具。",
+    "完全信任只跳过人工确认，不跳过硬性审核。",
+    "鼠标移到屏幕左上角可紧急停止。"
+  ]
+}

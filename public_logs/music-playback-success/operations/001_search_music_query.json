@@ -1,0 +1,25 @@
+{
+  "operation": 1,
+  "tool": "search_music_query",
+  "explanation": "第 1 次在 QQ 音乐搜索并播放目标歌曲《挪威的森林》",
+  "arguments": {
+    "query": "挪威的森林"
+  },
+  "result": {
+    "ok": true,
+    "query": "挪威的森林",
+    "submitted": true,
+    "result_clicked": true,
+    "play_command_sent": true,
+    "method": "window_relative_search_double_click_title",
+    "change_score": 0.003783
+  },
+  "telemetry": {
+    "operation": 1,
+    "tool_calls": 1,
+    "screen_changed": true,
+    "change_score": 0.052234,
+    "image": "<USER_HOME>\\Desktop\\desk_agent\\logs\\2026-09-19_17-11-52-822_我要听挪威的森林\\images\\001_search_music_query_after.png"
+  },
+  "error": null
+}

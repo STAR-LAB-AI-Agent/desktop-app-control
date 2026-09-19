@@ -1,0 +1,22 @@
+{
+  "operation": 1,
+  "tool": "open_app_via_windows_search",
+  "explanation": "当前屏幕未显示浏览器，需先启动 Edge 以搜索并播放复仇者联盟。",
+  "arguments": {
+    "app_name": "Edge"
+  },
+  "result": {
+    "ok": true,
+    "app_name": "Edge",
+    "method": "windows_search_keyboard",
+    "ignored_search_history": true
+  },
+  "telemetry": {
+    "operation": 1,
+    "tool_calls": 1,
+    "screen_changed": true,
+    "change_score": 0.307411,
+    "image": "<USER_HOME>\\Desktop\\desk_agent\\logs\\2026-09-19_12-48-49-653_我要看复仇者联盟\\images\\001_open_app_via_windows_search_after.png"
+  },
+  "error": null
+}

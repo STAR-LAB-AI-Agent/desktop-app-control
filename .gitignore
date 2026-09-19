@@ -1,0 +1,11 @@
+/logs/
+/outputs/
+/desktop_ai_agent.egg-info/
+/build/
+/dist/
+/.vscode/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.env
+.venv/

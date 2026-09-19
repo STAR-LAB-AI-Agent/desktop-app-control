@@ -1,0 +1,16 @@
+{
+  "kind": "general",
+  "payload": {
+    "task": "我要听挪威的森林",
+    "max_steps": 40,
+    "skill_route": {
+      "route": "general",
+      "confidence": 0.95,
+      "reason": "未指定视频网站，属于普通听歌请求，默认使用 general 路由。",
+      "requested_route": "general"
+    }
+  },
+  "id": "971815a3166f4ae798cd81a795a6a7c5",
+  "status": "submitted",
+  "created_at": "2026-09-19T09:11:52.822078+00:00"
+}

@@ -1,0 +1,27 @@
+{
+  "task_id": "b2e28dc73b524b5593dc92b1a02d1405",
+  "decision": "confirm",
+  "risk": "medium",
+  "summary": "在搜索结果中的可靠视频网站中查找并播放“我要看复仇者联盟”。",
+  "actions": [
+    {
+      "tool": "skill_agent_loop",
+      "arguments": {
+        "skill": "web-video-playback",
+        "variables": {
+          "video_query": "我要看复仇者联盟",
+          "requested_platform": "",
+          "platform_url": "",
+          "browser_app_name": "Edge"
+        },
+        "max_steps": 40
+      },
+      "purpose": "加载匹配的场景 Skill，并按专用流程逐步执行和验证"
+    }
+  ],
+  "warnings": [
+    "搜索词会发送给浏览器搜索引擎或视频网站。",
+    "视频开始播放后可能产生声音。",
+    "遇到登录、验证码、付费或地区限制时会停止并等待人工处理。"
+  ]
+}

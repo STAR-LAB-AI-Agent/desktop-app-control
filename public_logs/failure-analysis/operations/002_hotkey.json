@@ -1,0 +1,26 @@
+{
+  "operation": 2,
+  "tool": "hotkey",
+  "explanation": "Edge 已打开并显示新建标签页，需聚焦地址栏以搜索蜘蛛侠视频网站。",
+  "arguments": {
+    "keys": [
+      "ctrl",
+      "l"
+    ]
+  },
+  "result": {
+    "ok": true,
+    "keys": [
+      "ctrl",
+      "l"
+    ]
+  },
+  "telemetry": {
+    "operation": 2,
+    "tool_calls": 1,
+    "screen_changed": true,
+    "change_score": 0.092966,
+    "image": "<USER_HOME>\\Desktop\\desk_agent\\logs\\2026-09-19_17-12-31-647_我要看蜘蛛侠\\images\\002_hotkey_after.png"
+  },
+  "error": null
+}

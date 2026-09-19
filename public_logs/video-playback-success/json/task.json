@@ -1,0 +1,23 @@
+{
+  "kind": "skill",
+  "payload": {
+    "task": "我要看复仇者联盟",
+    "max_steps": 40,
+    "skill_name": "web-video-playback",
+    "skill_variables": {
+      "video_query": "我要看复仇者联盟",
+      "requested_platform": "",
+      "platform_url": "",
+      "browser_app_name": "Edge"
+    },
+    "skill_route": {
+      "route": "web-video-playback",
+      "confidence": 0.95,
+      "reason": "用户明确要求观看视频内容（复仇者联盟），属于观看视频请求，匹配 web-video-playback。",
+      "requested_route": "web-video-playback"
+    }
+  },
+  "id": "b2e28dc73b524b5593dc92b1a02d1405",
+  "status": "submitted",
+  "created_at": "2026-09-19T04:48:49.653771+00:00"
+}

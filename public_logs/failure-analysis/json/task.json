@@ -1,0 +1,23 @@
+{
+  "kind": "skill",
+  "payload": {
+    "task": "我要看蜘蛛侠",
+    "max_steps": 40,
+    "skill_name": "web-video-playback",
+    "skill_variables": {
+      "video_query": "我要看蜘蛛侠",
+      "requested_platform": "",
+      "platform_url": "",
+      "browser_app_name": "Edge"
+    },
+    "skill_route": {
+      "route": "web-video-playback",
+      "confidence": 0.9,
+      "reason": "用户明确要求观看视频内容（蜘蛛侠），属于观看视频/在视频网站查找播放的意图。",
+      "requested_route": "web-video-playback"
+    }
+  },
+  "id": "ec528dc594f144bcafc36e41732cd25b",
+  "status": "submitted",
+  "created_at": "2026-09-19T09:12:31.647677+00:00"
+}

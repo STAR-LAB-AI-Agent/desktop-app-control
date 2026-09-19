@@ -1,0 +1,26 @@
+{
+  "operation": 2,
+  "tool": "hotkey",
+  "explanation": "Edge 已打开，先聚焦地址栏以便搜索视频网站。",
+  "arguments": {
+    "keys": [
+      "ctrl",
+      "l"
+    ]
+  },
+  "result": {
+    "ok": true,
+    "keys": [
+      "ctrl",
+      "l"
+    ]
+  },
+  "telemetry": {
+    "operation": 2,
+    "tool_calls": 1,
+    "screen_changed": true,
+    "change_score": 0.096768,
+    "image": "<USER_HOME>\\Desktop\\desk_agent\\logs\\2026-09-19_12-48-49-653_我要看复仇者联盟\\images\\002_hotkey_after.png"
+  },
+  "error": null
+}

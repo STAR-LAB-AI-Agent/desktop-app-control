@@ -1,0 +1,22 @@
+{
+  "operation": 3,
+  "tool": "submit_search_query",
+  "explanation": "Edge 地址栏已聚焦，直接搜索蜘蛛侠视频网站。",
+  "arguments": {
+    "query": "蜘蛛侠 视频网站"
+  },
+  "result": {
+    "ok": true,
+    "query": "蜘蛛侠 视频网站",
+    "submitted": true,
+    "ignored_suggestions": true
+  },
+  "telemetry": {
+    "operation": 3,
+    "tool_calls": 1,
+    "screen_changed": true,
+    "change_score": 0.198032,
+    "image": "<USER_HOME>\\Desktop\\desk_agent\\logs\\2026-09-19_17-12-31-647_我要看蜘蛛侠\\images\\003_submit_search_query_after.png"
+  },
+  "error": null
+}

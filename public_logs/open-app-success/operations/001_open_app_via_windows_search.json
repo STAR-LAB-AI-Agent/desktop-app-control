@@ -1,0 +1,22 @@
+{
+  "operation": 1,
+  "tool": "open_app_via_windows_search",
+  "explanation": "微信未显示在屏幕上，需通过 Windows 搜索启动。",
+  "arguments": {
+    "app_name": "微信"
+  },
+  "result": {
+    "ok": true,
+    "app_name": "微信",
+    "method": "windows_search_keyboard",
+    "ignored_search_history": true
+  },
+  "telemetry": {
+    "operation": 1,
+    "tool_calls": 1,
+    "screen_changed": true,
+    "change_score": 0.011523,
+    "image": "<USER_HOME>\\Desktop\\desk_agent\\logs\\2026-09-19_15-43-04-919_打开微信\\images\\001_open_app_via_windows_search_after.png"
+  },
+  "error": null
+}

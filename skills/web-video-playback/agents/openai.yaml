@@ -1,0 +1,4 @@
+interface:
+  display_name: "网页视频播放"
+  short_description: "查找指定视频网站、搜索目标视频并确认开始播放"
+  default_prompt: "使用 $web-video-playback 在视频网站中搜索并播放指定视频。"

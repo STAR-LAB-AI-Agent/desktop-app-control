@@ -1,0 +1,24 @@
+{
+  "protocol": "agent-skill-script/v1",
+  "name": "inspect_video_playback_state",
+  "description": "间隔截取两张屏幕，判断视频网站播放器是否有广告、片头或正片正在播放，以及搜索、加载、暂停、受阻或不可见状态",
+  "entrypoint": "inspect_video_playback_state.py",
+  "timeout_seconds": 120,
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "video_query": {
+        "type": "string",
+        "description": "当前任务要播放的视频名称或搜索词"
+      },
+      "sample_seconds": {
+        "type": "number",
+        "minimum": 0.5,
+        "maximum": 5,
+        "description": "两次截图之间的等待秒数，默认 1.5"
+      }
+    },
+    "required": ["video_query"],
+    "additionalProperties": false
+  }
+}
